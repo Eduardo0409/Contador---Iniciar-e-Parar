@@ -7,15 +7,34 @@ import { bootstrapApplication } from '@angular/platform-browser';
   selector: 'my-app',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <h1>Hello from {{name}}!</h1>
-    <a target="_blank" href="https://angular.io/start">
-      Learn more about Angular 
-    </a>
-  `,
+  templateUrl: `./main.html`,
 })
 export class App {
-  name = 'Angular';
+  timer: number;
+  counter: number = 0;
+  getMinutes(){
+    return Math.trunc(this.counter / 60);
+  }
+  getSeconds(){
+    return this.counter % 60;
+  }
+  start(){
+    this.timer = setInterval(() => {
+      this.counter++;
+    }, 1000);
+  }
+  stop(){
+    clearInterval(this.timer);
+    this.counter = 0;
+  }
+  pause(){
+    clearInterval(this.timer);
+  }
+
+  constructor(){
+    this.timer = 0;
+  }
 }
+
 
 bootstrapApplication(App);
